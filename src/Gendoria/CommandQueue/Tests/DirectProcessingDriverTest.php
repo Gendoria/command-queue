@@ -22,8 +22,8 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
 {
     public function testSend()
     {
-        $command = $this->getMock('\Gendoria\CommandQueue\Command\CommandInterface');
-        $service = $this->getMock('\Gendoria\CommandQueue\CommandProcessorInterface');
+        $command = $this->getMockBuilder('\Gendoria\CommandQueue\Command\CommandInterface')->getMock();
+        $service = $this->getMockBuilder('\Gendoria\CommandQueue\CommandProcessorInterface')->getMock();
         $service->expects($this->any())
             ->method('supports')
             ->with($command)
