@@ -47,7 +47,7 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
         $logger = $this->getMockBuilder('\Psr\Log\LoggerInterface')->getMock();
         $logger->expects($this->once())
             ->method('error')
-            ->with('Exception while sending command: No processor registered for given command class: '.  get_class($command));
+            ->with('Exception while sending command: No processor registered for given command class: '.get_class($command));
         
         $processorFactory = new ProcessorFactory();
         $driver = new DirectProcessingDriver();
