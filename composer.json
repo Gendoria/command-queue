@@ -1,0 +1,29 @@
+{
+    "name": "gendoria/command-queue",
+    "description": "Library providing command queue",
+    "authors": [
+        {
+            "name": "Gendoria",
+            "email": "gendoria@gendoria.pl",
+            "role": "owner"
+        },
+        {
+            "name": "Tomasz Struczyński",
+            "email": "t.struczynski@gmail.com",
+            "role": "developer"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.0",
+        "psr/log": "~1.0"
+    },
+     "require-dev": {
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-4": { "Gendoria\\CommandQueue\\": "src/Gendoria/CommandQueue" }
+    },
+    "minimum-stability": "dev"
+}
