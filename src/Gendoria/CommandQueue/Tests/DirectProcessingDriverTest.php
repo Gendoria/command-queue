@@ -29,7 +29,7 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
             ->with($command)
             ->will($this->returnValue(true));
         
-        $logger = $this->getMock('\Psr\Log\LoggerInterface');
+        $logger = $this->getMockBuilder('\Psr\Log\LoggerInterface')->getMock();
         $logger->expects($this->never())
             ->method('error');
         $processorFactory = new ProcessorFactory();
@@ -43,8 +43,8 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
     
     public function testSendNoProcessor()
     {
-        $command = $this->getMock('\Gendoria\CommandQueue\Command\CommandInterface');
-        $logger = $this->getMock('\Psr\Log\LoggerInterface');
+        $command = $this->getMockBuilder('\Gendoria\CommandQueue\Command\CommandInterface')->getMock();
+        $logger = $this->getMockBuilder('\Psr\Log\LoggerInterface')->getMock();
         $logger->expects($this->once())
             ->method('error')
             ->with('Exception while sending command: No processor registered for given command class: '.  get_class($command));
@@ -59,14 +59,14 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
     
     public function testSendProcessorException()
     {
-        $command = $this->getMock('\Gendoria\CommandQueue\Command\CommandInterface');
-        $service = $this->getMock('\Gendoria\CommandQueue\CommandProcessorInterface');
+        $command = $this->getMockBuilder('\Gendoria\CommandQueue\Command\CommandInterface')->getMock();
+        $service = $this->getMockBuilder('\Gendoria\CommandQueue\CommandProcessorInterface')->getMock();
         $service->expects($this->any())
             ->method('supports')
             ->with($command)
             ->will($this->returnValue(true));
         
-        $logger = $this->getMock('\Psr\Log\LoggerInterface');
+        $logger = $this->getMockBuilder('\Psr\Log\LoggerInterface')->getMock();
         $logger->expects($this->once())
             ->method('error')
             ->with('Exception while sending command: Dummy exception');
@@ -90,7 +90,7 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
         $processorFactory = new ProcessorFactory();
         $driver = new DirectProcessingDriver();
         $driver->setProcessorFactory($processorFactory);
-        $command = $this->getMock('\Gendoria\CommandQueue\Command\CommandInterface');
+        $command = $this->getMockBuilder('\Gendoria\CommandQueue\Command\CommandInterface')->getMock();
         
         $driver->process($command);
     }    

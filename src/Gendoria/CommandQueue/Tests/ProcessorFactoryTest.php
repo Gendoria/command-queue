@@ -20,8 +20,8 @@ class ProcessorFactoryTest extends PHPUnit_Framework_TestCase
 {
     public function testProcessor()
     {
-        $service = $this->getMock('\Gendoria\CommandQueue\CommandProcessorInterface');
-        $command = $this->getMock('\Gendoria\CommandQueue\Command\CommandInterface');
+        $service = $this->getMockBuilder('\Gendoria\CommandQueue\CommandProcessorInterface')->getMock();
+        $command = $this->getMockBuilder('\Gendoria\CommandQueue\Command\CommandInterface')->getMock();
         $service->expects($this->any())
             ->method('supports')
             ->with($command)
@@ -35,7 +35,7 @@ class ProcessorFactoryTest extends PHPUnit_Framework_TestCase
     public function testNotExistingCommand()
     {
         $this->setExpectedException('\InvalidArgumentException', 'Registering service for non existing command class.');
-        $service = $this->getMock('\Gendoria\CommandQueue\CommandProcessorInterface');
+        $service = $this->getMockBuilder('\Gendoria\CommandQueue\CommandProcessorInterface')->getMock();
         $processor = new ProcessorFactory();
         $processor->registerProcessorForCommand('dummy', $service);
     }
@@ -43,8 +43,8 @@ class ProcessorFactoryTest extends PHPUnit_Framework_TestCase
     public function testInvalidCommand()
     {
         $this->setExpectedException('\InvalidArgumentException', 'Command class has to implement CommandInterface interface.');
-        $service = $this->getMock('\Gendoria\CommandQueue\CommandProcessorInterface');
-        $command = $this->getMock('stdClass');
+        $service = $this->getMockBuilder('\Gendoria\CommandQueue\CommandProcessorInterface')->getMock();
+        $command = $this->getMockBuilder('stdClass')->getMock();
         $processor = new ProcessorFactory();
         $processor->registerProcessorForCommand(get_class($command), $service);
     }
@@ -52,7 +52,7 @@ class ProcessorFactoryTest extends PHPUnit_Framework_TestCase
     public function testNoProcessor()
     {
         $this->setExpectedException('\Gendoria\CommandQueue\ProcessorNotFoundException');
-        $command = $this->getMock('\Gendoria\CommandQueue\Command\CommandInterface');
+        $command = $this->getMockBuilder('\Gendoria\CommandQueue\Command\CommandInterface')->getMock();
         $processor = new ProcessorFactory();
         $processor->getProcessor($command);
     }

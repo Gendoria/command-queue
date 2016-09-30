@@ -22,7 +22,7 @@ class SimpleQueueManagerTest extends PHPUnit_Framework_TestCase
 {
     public function test()
     {
-        $command = $this->getMock('\Gendoria\CommandQueue\Command\CommandInterface');
+        $command = $this->getMockBuilder('\Gendoria\CommandQueue\Command\CommandInterface')->getMock();
         $qm = new SimpleQueueManager();
         $processorFactory = new ProcessorFactory();
         $driver = new DirectProcessingDriver();
@@ -34,7 +34,7 @@ class SimpleQueueManagerTest extends PHPUnit_Framework_TestCase
     public function testNoSendDriver()
     {
         $this->setExpectedException('\RuntimeException', 'Send driver not set');
-        $command = $this->getMock('\Gendoria\CommandQueue\Command\CommandInterface');
+        $command = $this->getMockBuilder('\Gendoria\CommandQueue\Command\CommandInterface')->getMock();
         $qm = new SimpleQueueManager();
         $qm->sendCommand($command);
     }

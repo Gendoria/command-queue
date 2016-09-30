@@ -27,13 +27,13 @@ class MultipleQueueManagerTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(RuntimeException::class);
         $manager = new MultipleQueueManager();
-        $manager->sendCommand($this->getMock(CommandInterface::class));
+        $manager->sendCommand($this->getMockBuilder(CommandInterface::class)->getMock());
     }
     
     public function testDefaultPool()
     {
         $command = new DummyCommand();
-        $sendDriver = $this->getMock(SendDriverInterface::class);
+        $sendDriver = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver->expects($this->once())
             ->method('send')
             ->with($command);
@@ -45,10 +45,10 @@ class MultipleQueueManagerTest extends PHPUnit_Framework_TestCase
     public function testSimpleCommandRoute()
     {
         $command = new DummyCommand();
-        $sendDriver1 = $this->getMock(SendDriverInterface::class);
+        $sendDriver1 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver1->expects($this->never())
             ->method('send');
-        $sendDriver2 = $this->getMock(SendDriverInterface::class);
+        $sendDriver2 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver2->expects($this->once())
             ->method('send')
             ->with($command);
@@ -62,10 +62,10 @@ class MultipleQueueManagerTest extends PHPUnit_Framework_TestCase
     public function testRegexpCommandRoute()
     {
         $command = new DummyCommand();
-        $sendDriver1 = $this->getMock(SendDriverInterface::class);
+        $sendDriver1 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver1->expects($this->never())
             ->method('send');
-        $sendDriver2 = $this->getMock(SendDriverInterface::class);
+        $sendDriver2 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver2->expects($this->once())
             ->method('send')
             ->with($command);
@@ -79,11 +79,11 @@ class MultipleQueueManagerTest extends PHPUnit_Framework_TestCase
     public function testBaseClassCommandRoute()
     {
         $command = new DummyChildCommand();
-        $sendDriver1 = $this->getMock(SendDriverInterface::class);
+        $sendDriver1 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver1->expects($this->never())
             ->method('send')
             ;
-        $sendDriver2 = $this->getMock(SendDriverInterface::class);
+        $sendDriver2 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver2->expects($this->once())
             ->method('send')
             ->with($command);
@@ -97,11 +97,11 @@ class MultipleQueueManagerTest extends PHPUnit_Framework_TestCase
     public function testInterfaceCommandRoute()
     {
         $command = new DummyCommand();
-        $sendDriver1 = $this->getMock(SendDriverInterface::class);
+        $sendDriver1 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver1->expects($this->never())
             ->method('send')
             ;
-        $sendDriver2 = $this->getMock(SendDriverInterface::class);
+        $sendDriver2 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver2->expects($this->once())
             ->method('send')
             ->with($command);
@@ -115,15 +115,15 @@ class MultipleQueueManagerTest extends PHPUnit_Framework_TestCase
     public function testBaseClassPrecedenceOverInterface()
     {
         $command = new DummyChildCommand();
-        $sendDriver1 = $this->getMock(SendDriverInterface::class);
+        $sendDriver1 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver1->expects($this->never())
             ->method('send')
             ;
-        $sendDriver2 = $this->getMock(SendDriverInterface::class);
+        $sendDriver2 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver2->expects($this->once())
             ->method('send')
             ->with($command);
-        $sendDriver3 = $this->getMock(SendDriverInterface::class);
+        $sendDriver3 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver3->expects($this->never())
             ->method('send')
             ;
@@ -139,15 +139,15 @@ class MultipleQueueManagerTest extends PHPUnit_Framework_TestCase
     public function testClassInterfacePrecedenceOverBaseClassInterface()
     {
         $command = new DummyChildCommand();
-        $sendDriver1 = $this->getMock(SendDriverInterface::class);
+        $sendDriver1 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver1->expects($this->never())
             ->method('send')
             ;
-        $sendDriver2 = $this->getMock(SendDriverInterface::class);
+        $sendDriver2 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver2->expects($this->once())
             ->method('send')
             ->with($command);
-        $sendDriver3 = $this->getMock(SendDriverInterface::class);
+        $sendDriver3 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver3->expects($this->never())
             ->method('send')
             ;
