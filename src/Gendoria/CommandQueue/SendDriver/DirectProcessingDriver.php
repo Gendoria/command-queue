@@ -11,7 +11,7 @@ use Psr\Log\LoggerAwareInterface;
 /**
  * Description of DirectProcessingDriver.
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
 class DirectProcessingDriver implements SendDriverInterface, WorkerInterface, LoggerAwareInterface
 {

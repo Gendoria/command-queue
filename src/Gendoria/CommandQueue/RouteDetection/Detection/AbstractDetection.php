@@ -5,7 +5,7 @@ namespace Gendoria\CommandQueue\RouteDetection\Detection;
 /**
  * Description of AbstractDetection.
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
 class AbstractDetection implements DetectionInterface
 {

@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Interface for Command Processor.
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
 interface CommandProcessorInterface
 {

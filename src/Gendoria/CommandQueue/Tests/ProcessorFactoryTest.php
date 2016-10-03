@@ -1,10 +1,5 @@
 <?php
 
-/*
- * All rights reserved
- * Copyright 2015 Isobar Poland
- */
-
 namespace Gendoria\CommandQueue\Tests;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
@@ -17,7 +12,7 @@ use PHPUnit_Framework_TestCase;
 /**
  * Description of ProcessorFactoryTest
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  * @group CommandQueue
  */
 class ProcessorFactoryTest extends PHPUnit_Framework_TestCase

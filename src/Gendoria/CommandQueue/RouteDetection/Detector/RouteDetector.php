@@ -11,7 +11,7 @@ use ReflectionClass;
 /**
  * Detector class used for match class expressions with arbitrary routes.
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
 class RouteDetector
 {

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * All rights reserved
- * Copyright 2016 Isobar Poland
- */
-
 namespace Gendoria\CommandQueue\Exception;
 
 use Exception;
@@ -12,7 +7,7 @@ use Exception;
 /**
  * Exception thrown, when multiple processors are registered for given command class.
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
 class MultipleProcessorsException extends Exception
 {

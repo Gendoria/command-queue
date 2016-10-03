@@ -11,7 +11,7 @@ use ReflectionObject;
 /**
  * Description of RouteDetectorTest.
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  * @group RouteDetection
  */
 class CachedRouteDetectorTest extends PHPUnit_Framework_TestCase

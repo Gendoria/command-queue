@@ -10,7 +10,7 @@ use Gendoria\CommandQueue\ProcessorNotFoundException;
 /**
  * This interface describes functionality of a single processor worker node.
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
 interface WorkerInterface
 {

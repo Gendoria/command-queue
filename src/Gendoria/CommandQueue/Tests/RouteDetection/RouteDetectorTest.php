@@ -13,7 +13,7 @@ use PHPUnit_Framework_TestCase;
 /**
  * Description of RouteDetectorTest.
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  * @group RouteDetection
  */
 class RouteDetectorTest extends PHPUnit_Framework_TestCase

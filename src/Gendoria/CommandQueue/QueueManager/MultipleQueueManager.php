@@ -1,10 +1,5 @@
 <?php
 
-/**
- * All rights reserved
- * Copyright 2016 Isobar Poland
- */
-
 namespace Gendoria\CommandQueue\QueueManager;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
@@ -18,7 +13,7 @@ use RuntimeException;
 /**
  * Description of MultipleQueueManager
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
 class MultipleQueueManager implements MultipleQueueManagerInterface, LoggerAwareInterface, CommandRouterInterface
 {

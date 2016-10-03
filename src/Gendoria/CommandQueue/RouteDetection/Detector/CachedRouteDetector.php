@@ -5,7 +5,7 @@ namespace Gendoria\CommandQueue\RouteDetection\Detector;
 /**
  * Cached route detector caches detection result to speed up further searches for given class.
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
 class CachedRouteDetector extends RouteDetector
 {

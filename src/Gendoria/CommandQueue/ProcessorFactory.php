@@ -13,7 +13,7 @@ use ReflectionClass;
 /**
  * Command Processor factory - used for registering and retrieving command processor.
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
 class ProcessorFactory implements ProcessorFactoryInterface
 {

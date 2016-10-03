@@ -1,10 +1,5 @@
 <?php
 
-/*
- * All rights reserved
- * Copyright 2015 Isobar Poland
- */
-
 namespace Gendoria\CommandQueue\Tests;
 
 use Exception;
@@ -19,7 +14,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Description of DirectProcessingDriverTest
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  * @group CommandQueue
  */
 class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase

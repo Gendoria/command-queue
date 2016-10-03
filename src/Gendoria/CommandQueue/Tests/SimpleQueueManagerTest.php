@@ -1,28 +1,25 @@
 <?php
 
-/*
- * All rights reserved
- * Copyright 2015 Isobar Poland
- */
-
 namespace Gendoria\CommandQueue\Tests;
 
+use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\ProcessorFactory;
 use Gendoria\CommandQueue\QueueManager\SimpleQueueManager;
 use Gendoria\CommandQueue\SendDriver\DirectProcessingDriver;
 use PHPUnit_Framework_TestCase;
+use RuntimeException;
 
 /**
  * Description of SimpleQueueManagerTest
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  * @group CommandQueue
  */
 class SimpleQueueManagerTest extends PHPUnit_Framework_TestCase
 {
     public function test()
     {
-        $command = $this->getMockBuilder('\Gendoria\CommandQueue\Command\CommandInterface')->getMock();
+        $command = $this->getMockBuilder(CommandInterface::class)->getMock();
         $qm = new SimpleQueueManager();
         $processorFactory = new ProcessorFactory();
         $driver = new DirectProcessingDriver();
@@ -33,8 +30,8 @@ class SimpleQueueManagerTest extends PHPUnit_Framework_TestCase
     
     public function testNoSendDriver()
     {
-        $this->setExpectedException('\RuntimeException', 'Send driver not set');
-        $command = $this->getMockBuilder('\Gendoria\CommandQueue\Command\CommandInterface')->getMock();
+        $this->setExpectedException(RuntimeException::class, 'Send driver not set');
+        $command = $this->getMockBuilder(CommandInterface::class)->getMock();
         $qm = new SimpleQueueManager();
         $qm->sendCommand($command);
     }

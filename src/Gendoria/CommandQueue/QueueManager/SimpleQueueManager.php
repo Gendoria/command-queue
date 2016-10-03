@@ -9,7 +9,6 @@ use RuntimeException;
 /**
  * Simple queue manager.
  *
- * @author Bartosz Leśniak <bartosz.lesniak@isobar.com>
  */
 class SimpleQueueManager implements QueueManagerInterface
 {
