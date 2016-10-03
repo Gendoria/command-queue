@@ -25,6 +25,9 @@ class CachedRouteDetectorTest extends PHPUnit_Framework_TestCase
         $detector->addRoute(DummyInterface::class, 'test');
         $detector->detect(DummyChildClass::class);
         $this->assertEquals(array(DummyChildClass::class => 'test'), $cache->getValue($detector));
+        $this->assertNotEmpty($cache->getValue($detector));
+        //This should go from cache
+        $this->assertEquals(array(DummyChildClass::class => 'test'), $cache->getValue($detector));
         $detector->addRoute(DummyInterface::class, 'test2');
         $this->assertEmpty($cache->getValue($detector));
     }
