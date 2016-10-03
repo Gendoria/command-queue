@@ -5,7 +5,6 @@ namespace Gendoria\CommandQueue\Worker;
 use Exception;
 use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
-use Gendoria\CommandQueue\ProcessorFactory;
 use Gendoria\CommandQueue\ProcessorFactoryInterface;
 use Gendoria\CommandQueue\ProcessorNotFoundException;
 use Gendoria\CommandQueue\Worker\Exception\ProcessorErrorException;
@@ -70,6 +69,7 @@ abstract class BaseWorker implements WorkerInterface
         try {
             $processor->process($command);
         } catch (Exception $e) {
+            $this->processorErrorHook($command, $processor, $e);
             throw new ProcessorErrorException($command, $processor, $e->getMessage(), $e->getCode(), $e);
         }
         $this->afterProcessHook($command, $processor);
@@ -149,6 +149,20 @@ abstract class BaseWorker implements WorkerInterface
      * @codeCoverageIgnore
      */
     protected function afterProcessHook(CommandInterface $command, CommandProcessorInterface $processor)
+    {
+    }
+    
+    /**
+     * Hook called after successfull processing of command.
+     * 
+     * @param CommandInterface $command
+     * @param CommandProcessorInterface $processor
+     * @param Exception $e Exception thrown by processor.
+     * @return void
+     * 
+     * @codeCoverageIgnore
+     */
+    protected function processorErrorHook(CommandInterface $command, CommandProcessorInterface $processor, Exception $e)
     {
     }    
 }
