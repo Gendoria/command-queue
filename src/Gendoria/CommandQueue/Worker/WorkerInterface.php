@@ -6,6 +6,8 @@ use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
 use Gendoria\CommandQueue\ProcessorFactoryInterface;
 use Gendoria\CommandQueue\ProcessorNotFoundException;
+use Gendoria\CommandQueue\Worker\Exception\ProcessorErrorException;
+use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
 
 /**
  * This interface describes functionality of a single processor worker node.
@@ -15,15 +17,25 @@ use Gendoria\CommandQueue\ProcessorNotFoundException;
 interface WorkerInterface
 {
     /**
-     * Process single command.
-     *
-     * @param CommandInterface $command
-     *
-     * @throws ProcessorNotFoundException
-     *
-     * @return CommandProcessorInterface Processor used to process command.
+     * Process single command data.
+     * 
+     * @param mixed $commandData Command data used by command transport layer.
+     * @return void
+     * 
+     * @throws ProcessorErrorException Thrown, when processor returned error.
+     * @throws ProcessorNotFoundException Thrown, when processor for given command has not been found.
+     * @throws TranslateErrorException Thrown, when command data could not have been translated to command.
      */
-    public function process(CommandInterface $command);
+    public function process($commandData);
+    
+    /**
+     * Return processor for given command.
+     * 
+     * @return CommandProcessorInterface Processor, that can be used to process command.
+     * 
+     * @throws ProcessorNotFoundException Thrown, when processor has not been found.
+     */
+    public function getProcessor(CommandInterface $command);
 
     /**
      * Set processor factory.
