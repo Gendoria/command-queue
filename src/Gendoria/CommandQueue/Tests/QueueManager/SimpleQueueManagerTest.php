@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendoria\CommandQueue\Tests;
+namespace Gendoria\CommandQueue\Tests\QueueManager;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\ProcessorFactory;
