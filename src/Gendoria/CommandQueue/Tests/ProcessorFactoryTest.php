@@ -4,6 +4,7 @@ namespace Gendoria\CommandQueue\Tests;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
+use Gendoria\CommandQueue\Exception\MultipleProcessorsException;
 use Gendoria\CommandQueue\ProcessorFactory;
 use Gendoria\CommandQueue\ProcessorNotFoundException;
 use InvalidArgumentException;
@@ -54,5 +55,25 @@ class ProcessorFactoryTest extends PHPUnit_Framework_TestCase
         $command = $this->getMockBuilder(CommandInterface::class)->getMock();
         $processor = new ProcessorFactory();
         $processor->getProcessor($command);
+    }
+    
+    public function testMultipleProcessorException()
+    {
+        $this->setExpectedException(MultipleProcessorsException::class);
+        $command = $this->getMockBuilder(CommandInterface::class)->getMock();
+        $service = $this->getMockBuilder(CommandProcessorInterface::class)->getMock();
+        $processor = new ProcessorFactory();
+        $processor->registerProcessorForCommand(get_class($command), $service);
+        $processor->registerProcessorForCommand(get_class($command), $service);
+    }
+    
+    public function testHasProcessor()
+    {
+        $command = $this->getMockBuilder(CommandInterface::class)->getMock();
+        $service = $this->getMockBuilder(CommandProcessorInterface::class)->getMock();
+        $processor = new ProcessorFactory();
+        $processor->registerProcessorForCommand(get_class($command), $service);
+        $this->assertTrue($processor->hasProcessor(get_class($command)));
+        $this->assertFalse($processor->hasProcessor('__nonExistingClass__'));
     }
 }
