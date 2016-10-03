@@ -231,5 +231,6 @@ class RouteDetector
                 break;
             }
         }
+        return $interfacesArr;
     }
 }
