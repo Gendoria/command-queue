@@ -3,6 +3,7 @@
 namespace Gendoria\CommandQueue\QueueManager;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
+use Gendoria\CommandQueue\RouteDetection\Detection\DetectionInterface;
 use Gendoria\CommandQueue\RouteDetection\Detector\CachedRouteDetector;
 use Gendoria\CommandQueue\SendDriver\SendDriverInterface;
 use Psr\Log\LoggerAwareInterface;
@@ -111,7 +112,7 @@ class MultipleQueueManager implements MultipleQueueManagerInterface, LoggerAware
      * Detect correct pool for given command.
      *
      * @param CommandInterface $command
-     * @return string Pool name.
+     * @return DetectionInterface
      */
     private function detectPool(CommandInterface $command)
     {

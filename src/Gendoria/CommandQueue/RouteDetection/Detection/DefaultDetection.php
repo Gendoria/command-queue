@@ -3,7 +3,7 @@
 namespace Gendoria\CommandQueue\RouteDetection\Detection;
 
 /**
- * Description of DefaultDetection.
+ * Class returned, when default route is being used.
  *
  * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
