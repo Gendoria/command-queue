@@ -9,7 +9,7 @@ use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
 /**
  * Exception thrown, when command translation has been unsuccessfull.
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
 class ProcessorErrorException extends Exception
 {

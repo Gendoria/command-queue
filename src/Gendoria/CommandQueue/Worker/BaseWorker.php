@@ -15,7 +15,7 @@ use Psr\Log\NullLogger;
 /**
  * Base command queue worker
  *
- * @author Tomasz Struczyński <tomasz.struczynski@isobar.com>
+ * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
 abstract class BaseWorker implements WorkerInterface
 {
