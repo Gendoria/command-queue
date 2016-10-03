@@ -6,8 +6,12 @@ use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\QueueManager\MultipleQueueManager;
 use Gendoria\CommandQueue\SendDriver\SendDriverInterface;
 use Gendoria\CommandQueue\Tests\Fixtures\DummyChildCommand;
+use Gendoria\CommandQueue\Tests\Fixtures\DummyChildInterface;
 use Gendoria\CommandQueue\Tests\Fixtures\DummyCommand;
+use Gendoria\CommandQueue\Tests\Fixtures\DummyInterface;
 use PHPUnit_Framework_TestCase;
+use Psr\Log\LoggerInterface;
+use ReflectionObject;
 use RuntimeException;
 
 /**
@@ -18,6 +22,20 @@ use RuntimeException;
  */
 class MultipleQueueManagerTest extends PHPUnit_Framework_TestCase
 {
+    public function testSetLogger()
+    {
+        $logger1 = $this->getMockBuilder(LoggerInterface::class)->getMock();
+        $logger2 = $this->getMockBuilder(LoggerInterface::class)->getMock();
+        $manager = new MultipleQueueManager($logger1);
+        $reflectionObject = new ReflectionObject($manager);
+        $loggerProp = $reflectionObject->getProperty('logger');
+        $loggerProp->setAccessible(true);
+        
+        $this->assertEquals($loggerProp->getValue($manager), $logger1);
+        $manager->setLogger($logger2);
+        $this->assertEquals($loggerProp->getValue($manager), $logger2);
+    }
+    
     public function testNoPool()
     {
         $this->setExpectedException(RuntimeException::class);
@@ -135,23 +153,27 @@ class MultipleQueueManagerTest extends PHPUnit_Framework_TestCase
     {
         $command = new DummyChildCommand();
         $sendDriver1 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
-        $sendDriver1->expects($this->never())
+        //This is actually never meant to have been called. Any added to allow better error message handling.
+        $sendDriver1->expects($this->any())
             ->method('send')
+            ->will($this->throwException(new \Exception("Default manager should not have been called")))
             ;
         $sendDriver2 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $sendDriver2->expects($this->once())
             ->method('send')
             ->with($command);
         $sendDriver3 = $this->getMockBuilder(SendDriverInterface::class)->getMock();
-        $sendDriver3->expects($this->never())
+        //This is actually never meant to have been called. Any added to allow better error message handling.
+        $sendDriver3->expects($this->any())
             ->method('send')
+            ->will($this->throwException(new \Exception("Base class interface manager should not have been called")))
             ;
         $manager = new MultipleQueueManager();
         $manager->addSendDriver('manager1', $sendDriver1, true);
         $manager->addSendDriver('manager2', $sendDriver2);
         $manager->addSendDriver('manager3', $sendDriver3);
-        $manager->addCommandRoute(Fixtures\DummyChildInterface::class, 'manager2');
-        $manager->addCommandRoute(Fixtures\DummyInterface::class, 'manager3');
+        $manager->addCommandRoute(DummyChildInterface::class, 'manager2');
+        $manager->addCommandRoute(DummyInterface::class, 'manager3');
         $manager->sendCommand($command);
     }    
 }
