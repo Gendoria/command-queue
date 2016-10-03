@@ -25,14 +25,14 @@ abstract class BaseWorker implements WorkerInterface
      *
      * @var ProcessorFactoryInterface
      */
-    private $processorFactory;
+    protected $processorFactory;
 
     /**
      * Logger instance.
      *
      * @var LoggerInterface
      */
-    private $logger;
+    protected $logger;
 
     /**
      * Class constructor.
