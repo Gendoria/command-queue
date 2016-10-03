@@ -64,7 +64,12 @@ class ProcessorFactoryTest extends PHPUnit_Framework_TestCase
         $service = $this->getMockBuilder(CommandProcessorInterface::class)->getMock();
         $processor = new ProcessorFactory();
         $processor->registerProcessorForCommand(get_class($command), $service);
-        $processor->registerProcessorForCommand(get_class($command), $service);
+        try {
+            $processor->registerProcessorForCommand(get_class($command), $service);
+        } catch (MultipleProcessorsException $e) {
+            $this->assertEquals($e->getCommandClassName(), get_class($command));
+            throw $e;
+        }
     }
     
     public function testHasProcessor()
