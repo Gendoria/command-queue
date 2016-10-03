@@ -1,15 +1,10 @@
 <?php
 
-/**
- * All rights reserved
- * Copyright 2016 Isobar Poland.
- */
+namespace Gendoria\CommandQueue\Tests\RouteDetection;
 
-namespace Gendoria\CommandQueue\RouteDetection\Tests;
-
-use Gendoria\CommandQueue\RouteDetection\CachedRouteDetector;
-use Gendoria\CommandQueue\RouteDetection\Tests\Fixtures\DummyChildClass;
-use Gendoria\CommandQueue\RouteDetection\Tests\Fixtures\DummyInterface;
+use Gendoria\CommandQueue\RouteDetection\Detector\CachedRouteDetector;
+use Gendoria\CommandQueue\Tests\RouteDetection\Fixtures\DummyChildClass;
+use Gendoria\CommandQueue\Tests\RouteDetection\Fixtures\DummyInterface;
 use PHPUnit_Framework_TestCase;
 use ReflectionObject;
 

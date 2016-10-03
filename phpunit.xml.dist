@@ -13,7 +13,6 @@
     <testsuites>
         <testsuite name="Cruftflake Test Suite">
             <directory>./src/Gendoria/CommandQueue/Tests</directory>
-            <directory>./src/Gendoria/CommandQueue/RouteDetection/Tests</directory>
         </testsuite>
     </testsuites>
     

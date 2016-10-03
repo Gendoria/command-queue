@@ -1,11 +1,6 @@
 <?php
 
-/**
- * All rights reserved
- * Copyright 2016 Isobar Poland.
- */
-
-namespace Gendoria\CommandQueue\RouteDetection;
+namespace Gendoria\CommandQueue\RouteDetection\Detection;
 
 /**
  * Description of AbstractDetection.

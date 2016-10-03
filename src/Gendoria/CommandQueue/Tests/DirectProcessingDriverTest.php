@@ -10,7 +10,6 @@ namespace Gendoria\CommandQueue\Tests;
 use Gendoria\CommandQueue\ProcessorFactory;
 use Gendoria\CommandQueue\SendDriver\DirectProcessingDriver;
 use PHPUnit_Framework_TestCase;
-use Psr\Log\NullLogger;
 
 /**
  * Description of DirectProcessingDriverTest

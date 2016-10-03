@@ -1,18 +1,13 @@
 <?php
 
-/**
- * All rights reserved
- * Copyright 2016 Isobar Poland.
- */
+namespace Gendoria\CommandQueue\Tests\RouteDetection;
 
-namespace Gendoria\CommandQueue\RouteDetection\Tests;
-
+use Gendoria\CommandQueue\RouteDetection\Detector\RouteDetector;
+use Gendoria\CommandQueue\Tests\RouteDetection\Fixtures\DummyChildClass;
+use Gendoria\CommandQueue\Tests\RouteDetection\Fixtures\DummyChildInterface;
+use Gendoria\CommandQueue\Tests\RouteDetection\Fixtures\DummyClass;
+use Gendoria\CommandQueue\Tests\RouteDetection\Fixtures\DummyInterface;
 use InvalidArgumentException;
-use Gendoria\CommandQueue\RouteDetection\RouteDetector;
-use Gendoria\CommandQueue\RouteDetection\Tests\Fixtures\DummyChildClass;
-use Gendoria\CommandQueue\RouteDetection\Tests\Fixtures\DummyChildInterface;
-use Gendoria\CommandQueue\RouteDetection\Tests\Fixtures\DummyClass;
-use Gendoria\CommandQueue\RouteDetection\Tests\Fixtures\DummyInterface;
 use PHPUnit_Framework_TestCase;
 
 /**

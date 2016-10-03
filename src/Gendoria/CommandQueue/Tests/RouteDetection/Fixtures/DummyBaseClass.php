@@ -1,11 +1,6 @@
 <?php
 
-/**
- * All rights reserved
- * Copyright 2016 Isobar Poland.
- */
-
-namespace Gendoria\CommandQueue\RouteDetection\Tests\Fixtures;
+namespace Gendoria\CommandQueue\Tests\RouteDetection\Fixtures;
 
 /**
  * Description of DummyBaseCommand.

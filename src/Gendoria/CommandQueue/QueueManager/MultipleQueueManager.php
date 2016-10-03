@@ -8,8 +8,8 @@
 namespace Gendoria\CommandQueue\QueueManager;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
+use Gendoria\CommandQueue\RouteDetection\Detector\CachedRouteDetector;
 use Gendoria\CommandQueue\SendDriver\SendDriverInterface;
-use Gendoria\CommandQueue\RouteDetection\CachedRouteDetector;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;

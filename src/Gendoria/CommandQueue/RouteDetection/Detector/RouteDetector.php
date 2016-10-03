@@ -1,12 +1,10 @@
 <?php
 
-/**
- * All rights reserved
- * Copyright 2016 Isobar Poland.
- */
+namespace Gendoria\CommandQueue\RouteDetection\Detector;
 
-namespace Gendoria\CommandQueue\RouteDetection;
-
+use Gendoria\CommandQueue\RouteDetection\Detection\ClassDetection;
+use Gendoria\CommandQueue\RouteDetection\Detection\DefaultDetection;
+use Gendoria\CommandQueue\RouteDetection\Detection\DetectionInterface;
 use InvalidArgumentException;
 use ReflectionClass;
 
@@ -49,7 +47,7 @@ class RouteDetector
     /**
      * Add new route.
      *
-     * @param string $expression
+     * @param string $expression Either simple expression, or RegExp describing route.
      * @param string $route
      *
      * @return bool True, if route has been set, false otherwise.

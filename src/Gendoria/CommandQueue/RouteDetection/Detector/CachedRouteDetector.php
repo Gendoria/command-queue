@@ -1,11 +1,6 @@
 <?php
 
-/**
- * All rights reserved
- * Copyright 2016 Isobar Poland.
- */
-
-namespace Gendoria\CommandQueue\RouteDetection;
+namespace Gendoria\CommandQueue\RouteDetection\Detector;
 
 /**
  * Cached route detector caches detection result to speed up further searches for given class.
