@@ -15,6 +15,7 @@ interface QueueManagerInterface extends QueueSenderInterface
      * Set send driver for command queue.
      *
      * @param SendDriverInterface $sendDriver
+     * @return void
      */
     public function setSendDriver(SendDriverInterface $sendDriver);
 }

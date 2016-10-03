@@ -18,6 +18,7 @@ interface CommandRouterInterface
      *
      * @param string $commandExpression
      * @param string $poolName
+     * @return void
      */
     public function addCommandRoute($commandExpression, $poolName);
 }

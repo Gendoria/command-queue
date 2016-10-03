@@ -3,7 +3,7 @@
 namespace Gendoria\CommandQueue\Worker;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
-use Gendoria\CommandQueue\CommandProcessorInterface;
+use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
 use Gendoria\CommandQueue\ProcessorFactoryInterface;
 use Gendoria\CommandQueue\ProcessorNotFoundException;
 
@@ -29,6 +29,7 @@ interface WorkerInterface
      * Set processor factory.
      *
      * @param ProcessorFactoryInterface $processorFactory
+     * @return void
      */
     public function setProcessorFactory(ProcessorFactoryInterface $processorFactory);
 }

@@ -2,8 +2,9 @@
 
 namespace Gendoria\CommandQueue;
 
-use InvalidArgumentException;
 use Gendoria\CommandQueue\Command\CommandInterface;
+use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
+use InvalidArgumentException;
 
 /**
  * Interface describing operations of command processor factory.
@@ -17,6 +18,7 @@ interface ProcessorFactoryInterface
      *
      * @param string                    $commandClassName
      * @param CommandProcessorInterface $service
+     * @return void
      *
      * @throws InvalidArgumentException Thrown, when given command class does not exist, or does not implement CommandInterface.
      * @throws Exception\MultipleProcessorsException Thrown, when multiple processors are registered on same command classes.
@@ -40,7 +42,7 @@ interface ProcessorFactoryInterface
      * Return true, if processor for given class is already registered.
      *
      * @param string $commandClassName
-     * @return boolean
+     * @return boolean True,if processor for given class is already registered.
      */
     public function hasProcessor($commandClassName);
 }

@@ -23,6 +23,7 @@ interface MultipleQueueManagerInterface extends QueueSenderInterface
      * @param string              $pool       Send driver pool name.
      * @param SendDriverInterface $sendDriver
      * @param boolean             $isDefault  If true, added pool is marked as default.
+     * @return void
      */
     public function addSendDriver($pool, SendDriverInterface $sendDriver, $isDefault = false);
 }

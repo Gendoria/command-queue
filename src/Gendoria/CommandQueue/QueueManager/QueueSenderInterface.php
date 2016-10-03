@@ -20,6 +20,7 @@ interface QueueSenderInterface
      * Send command to command queue.
      *
      * @param CommandInterface $command
+     * @return void
      *
      * @throws RuntimeException Thrown, when send driver is not yet set.
      */

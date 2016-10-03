@@ -2,8 +2,10 @@
 
 namespace Gendoria\CommandQueue;
 
-use InvalidArgumentException;
 use Gendoria\CommandQueue\Command\CommandInterface;
+use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
+use Gendoria\CommandQueue\Exception\MultipleProcessorsException;
+use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use ReflectionClass;
@@ -52,7 +54,7 @@ class ProcessorFactory implements ProcessorFactoryInterface
             throw new InvalidArgumentException('Command class has to implement CommandInterface interface.');
         }
         if (array_key_exists($commandClassName, $this->commandTypes)) {
-            throw new Exception\MultipleProcessorsException($commandClassName);
+            throw new MultipleProcessorsException($commandClassName);
         }
         $this->commandTypes[$commandClassName] = $service;
     }

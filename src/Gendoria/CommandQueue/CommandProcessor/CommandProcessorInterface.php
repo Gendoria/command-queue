@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendoria\CommandQueue;
+namespace Gendoria\CommandQueue\CommandProcessor;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
 use Psr\Log\LoggerInterface;
@@ -16,6 +16,8 @@ interface CommandProcessorInterface
      * Process command.
      *
      * @param CommandInterface $command
+     * @return void
+     * @throws \Exception Thrown, when processing returned with an error.
      */
     public function process(CommandInterface $command);
     
@@ -31,6 +33,7 @@ interface CommandProcessorInterface
      * Set Logger instance.
      *
      * @param LoggerInterface $logger
+     * @return void
      */
     public function setLogger(LoggerInterface $logger);
 }
