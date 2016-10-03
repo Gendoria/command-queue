@@ -226,10 +226,11 @@ class RouteDetector
         $classParents = class_parents($className);
         foreach ($classParents as $parentClass) {
             $reflection = new ReflectionClass($parentClass);
-            array_unshift($interfacesArr, $reflection->getInterfaceNames());
-            if (empty($interfacesArr[0])) {
-                break;
+            $tmpInterfaces = $reflection->getInterfaceNames();
+            if (empty($tmpInterfaces)) {
+                return $interfacesArr;
             }
+            array_unshift($interfacesArr, $tmpInterfaces);
         }
         return $interfacesArr;
     }
