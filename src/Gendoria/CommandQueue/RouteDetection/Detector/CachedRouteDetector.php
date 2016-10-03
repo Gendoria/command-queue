@@ -2,8 +2,6 @@
 
 namespace Gendoria\CommandQueue\RouteDetection\Detector;
 
-use Gendoria\CommandQueue\RouteDetection\Detection\DetectionInterface;
-
 /**
  * Cached route detector caches detection result to speed up further searches for given class.
  *
@@ -14,13 +12,13 @@ class CachedRouteDetector extends RouteDetector
     /**
      * Array of cached routes.
      *
-     * @var DetectionInterface[]
+     * @var string[]
      */
     private $cachedRoutes = array();
 
     /**
      * {@inheritdoc}
-     * @return DetectionInterface
+     * @return string
      */
     public function detect($className)
     {
