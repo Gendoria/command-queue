@@ -196,20 +196,7 @@ class RouteDetector
      */
     private function getOrderedInterfaces($className)
     {
-        $interfacesArr = array();
-        $classParents = class_parents($className);
-        $reflection = new ReflectionClass($className);
-        $interfacesArr[] = $reflection->getInterfaceNames();
-        if (empty($interfacesArr[0])) {
-            return array();
-        }
-        foreach ($classParents as $parentClass) {
-            $reflection = new ReflectionClass($parentClass);
-            array_unshift($interfacesArr, $reflection->getInterfaceNames());
-            if (empty($interfacesArr[0])) {
-                break;
-            }
-        }
+        $interfacesArr = $this->prepareClassTreeInterfaces($className);
         $interfaces = array();
         foreach ($interfacesArr as $classInterfaces) {
             foreach ($classInterfaces as $interface) {
@@ -220,5 +207,29 @@ class RouteDetector
         }
 
         return $interfaces;
+    }
+    
+    /**
+     * Prepares all interfaces for given class and its parents.
+     * 
+     * @param string $className
+     * @return array
+     */
+    private function prepareClassTreeInterfaces($className)
+    {
+        $interfacesArr = array();
+        $reflection = new ReflectionClass($className);
+        $interfacesArr[] = $reflection->getInterfaceNames();
+        if (empty($interfacesArr[0])) {
+            return array();
+        }
+        $classParents = class_parents($className);
+        foreach ($classParents as $parentClass) {
+            $reflection = new ReflectionClass($parentClass);
+            array_unshift($interfacesArr, $reflection->getInterfaceNames());
+            if (empty($interfacesArr[0])) {
+                break;
+            }
+        }
     }
 }
