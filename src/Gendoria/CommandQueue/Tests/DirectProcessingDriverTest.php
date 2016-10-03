@@ -8,6 +8,7 @@ use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
 use Gendoria\CommandQueue\ProcessorFactory;
 use Gendoria\CommandQueue\ProcessorNotFoundException;
 use Gendoria\CommandQueue\SendDriver\DirectProcessingDriver;
+use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
 use PHPUnit_Framework_TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -92,5 +93,15 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
         $command = $this->getMockBuilder(CommandInterface::class)->getMock();
         
         $driver->process($command);
-    }    
+    }
+    
+    public function testIncorrectCommand()
+    {
+        $this->setExpectedException(TranslateErrorException::class);
+        $processorFactory = new ProcessorFactory();
+        $driver = new DirectProcessingDriver();
+        $driver->setProcessorFactory($processorFactory);
+        
+        $driver->process("Not a command");
+    }        
 }
