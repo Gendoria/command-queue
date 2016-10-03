@@ -3,6 +3,7 @@
 namespace Gendoria\CommandQueue\Tests\RouteDetection;
 
 use Gendoria\CommandQueue\RouteDetection\Detector\RouteDetector;
+use Gendoria\CommandQueue\Tests\RouteDetection\Fixtures\DummyBaseClass;
 use Gendoria\CommandQueue\Tests\RouteDetection\Fixtures\DummyChildClass;
 use Gendoria\CommandQueue\Tests\RouteDetection\Fixtures\DummyChildInterface;
 use Gendoria\CommandQueue\Tests\RouteDetection\Fixtures\DummyClass;
@@ -37,6 +38,15 @@ class RouteDetectorTest extends PHPUnit_Framework_TestCase
         $detector = new RouteDetector();
         $detector->setDefault('default');
         $detector->addRoute(DummyClass::class, 'test');
+        $this->assertEquals('test', $detector->detect(DummyClass::class));
+    }
+    
+    public function testMultipleTimesSameRoute()
+    {
+        $detector = new RouteDetector();
+        $detector->setDefault('default');
+        $detector->addRoute(DummyClass::class, 'test');
+        $this->assertFalse($detector->addRoute(DummyClass::class, 'test'));
         $this->assertEquals('test', $detector->detect(DummyClass::class));
     }
 
@@ -98,4 +108,11 @@ class RouteDetectorTest extends PHPUnit_Framework_TestCase
         $detector->addRoute(DummyInterface::class, 'test2');
         $this->assertEquals('test', $detector->detect(DummyChildClass::class));
     }
+    
+    public function testInterfaceDetectionOnClassWithoutInterfaces()
+    {
+        $detector = new RouteDetector();
+        $detector->setDefault('default');
+        $this->assertEquals('default', $detector->detect(DummyBaseClass::class));
+    }    
 }
