@@ -96,7 +96,7 @@ class RouteDetector
      *
      * @param string $className
      *
-     * @return string Name.
+     * @return DetectionInterface
      *
      * @throws InvalidArgumentException Thrown, if argument is not a class name.
      */

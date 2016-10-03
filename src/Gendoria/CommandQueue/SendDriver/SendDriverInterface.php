@@ -15,6 +15,8 @@ interface SendDriverInterface
      * Send command for processing.
      *
      * @param CommandInterface $command
+     * @return void
+     * @throws \Exception Thrown, when sending resulted in error.
      */
     public function send(CommandInterface $command);
 }

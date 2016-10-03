@@ -18,6 +18,7 @@ class CachedRouteDetector extends RouteDetector
 
     /**
      * {@inheritdoc}
+     * @return DetectionInterface
      */
     public function detect($className)
     {
