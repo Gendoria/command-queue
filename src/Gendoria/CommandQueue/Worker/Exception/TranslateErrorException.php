@@ -37,7 +37,7 @@ class TranslateErrorException extends Exception
      * 
      * @return mixed
      */
-    function getCommandData()
+    public function getCommandData()
     {
         return $this->commandData;
     }

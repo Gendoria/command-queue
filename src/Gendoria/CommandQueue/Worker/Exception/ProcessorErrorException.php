@@ -48,7 +48,7 @@ class ProcessorErrorException extends Exception
      * 
      * @return CommandInterface
      */
-    function getCommand()
+    public function getCommand()
     {
         return $this->command;
     }
@@ -58,7 +58,7 @@ class ProcessorErrorException extends Exception
      * 
      * @return CommandProcessorInterface
      */
-    function getProcessor()
+    public function getProcessor()
     {
         return $this->processor;
     }

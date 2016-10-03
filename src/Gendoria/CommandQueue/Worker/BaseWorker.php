@@ -101,13 +101,15 @@ abstract class BaseWorker implements WorkerInterface
      * @return CommandInterface
      * @throws \Exception Thrown, when translation has been unsuccessfull.
      */
-    protected abstract function translateCommand($commandData);
+    abstract protected function translateCommand($commandData);
 
     /**
      * Hook called before command translation.
      * 
      * @param string $commandData
      * @return void
+     * 
+     * @codeCoverageIgnore
      */
     protected function beforeTranslateHook(&$commandData)
     {
@@ -118,6 +120,8 @@ abstract class BaseWorker implements WorkerInterface
      * 
      * @param CommandInterface $command
      * @return void
+     * 
+     * @codeCoverageIgnore
      */
     protected function beforeGetProcessorHook(CommandInterface $command)
     {
@@ -128,6 +132,8 @@ abstract class BaseWorker implements WorkerInterface
      * 
      * @param CommandInterface $command
      * @return void
+     * 
+     * @codeCoverageIgnore
      */
     protected function beforeProcessHook(CommandInterface $command, CommandProcessorInterface $processor)
     {
@@ -139,6 +145,8 @@ abstract class BaseWorker implements WorkerInterface
      * @param CommandInterface $command
      * @param CommandProcessorInterface $processor
      * @return void
+     * 
+     * @codeCoverageIgnore
      */
     protected function afterProcessHook(CommandInterface $command, CommandProcessorInterface $processor)
     {

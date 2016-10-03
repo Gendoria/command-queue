@@ -44,6 +44,7 @@ class BaseWorkerTest extends PHPUnit_Framework_TestCase
         
         /* @var $mock PHPUnit_Framework_MockObject_MockObject|PHPUnit_Framework_MockObject_Generator|BaseWorker */
         $mock = $mockBaseBuilder->getMockForAbstractClass();
+        $mock->setProcessorFactory($processorFactory);
         
         $mock->expects($this->once())
             ->method('translateCommand')
