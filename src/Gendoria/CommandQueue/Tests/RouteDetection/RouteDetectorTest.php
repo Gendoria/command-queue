@@ -41,20 +41,22 @@ class RouteDetectorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', $detector->detect(DummyClass::class));
     }
     
+    public function testRegexpRoute()
+    {
+        $detector = new RouteDetector();
+        $detector->setDefault('default');
+        $detector->addRoute('*'.substr(DummyClass::class, 5).'*', 'test');
+        $this->assertEquals('test', $detector->detect(DummyClass::class));
+    }
+
     public function testMultipleTimesSameRoute()
     {
         $detector = new RouteDetector();
         $detector->setDefault('default');
         $detector->addRoute(DummyClass::class, 'test');
+        $detector->addRoute("*", 'test');
         $this->assertFalse($detector->addRoute(DummyClass::class, 'test'));
-        $this->assertEquals('test', $detector->detect(DummyClass::class));
-    }
-
-    public function testRegexpRoute()
-    {
-        $detector = new RouteDetector();
-        $detector->setDefault('default');
-        $detector->addRoute(substr(DummyClass::class, 5).'*', 'test');
+        $this->assertFalse($detector->addRoute("*", 'test'));
         $this->assertEquals('test', $detector->detect(DummyClass::class));
     }
 

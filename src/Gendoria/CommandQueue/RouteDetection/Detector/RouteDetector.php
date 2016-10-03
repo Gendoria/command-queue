@@ -56,7 +56,7 @@ class RouteDetector
     {
         //Detect command expression
         if (strpos($expression, '*') !== false) {
-            $expression = '|'.str_replace(array('*', '\\'), array('.*', '\\\\'), $expression).'|i';
+            $expression = '|^'.str_replace(array('*', '\\'), array('.*', '\\\\'), $expression).'$|i';
             if (array_key_exists($expression, $this->regexpRoutes) && $this->regexpRoutes[$expression] == $route) {
                 return false;
             }

@@ -67,7 +67,7 @@ class MultipleQueueManagerTest extends PHPUnit_Framework_TestCase
         $manager = new MultipleQueueManager();
         $manager->addSendDriver('default', $sendDriver1, true);
         $manager->addSendDriver('manager2', $sendDriver2);
-        $manager->addCommandRoute(substr(get_class($command), 5).'*', 'manager2');
+        $manager->addCommandRoute('*'.substr(get_class($command), 5).'*', 'manager2');
         $manager->sendCommand($command);
     }    
     
