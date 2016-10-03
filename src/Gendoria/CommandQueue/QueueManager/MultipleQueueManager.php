@@ -112,7 +112,7 @@ class MultipleQueueManager implements MultipleQueueManagerInterface, LoggerAware
      * Detect correct pool for given command.
      *
      * @param CommandInterface $command
-     * @return DetectionInterface
+     * @return string
      */
     private function detectPool(CommandInterface $command)
     {
