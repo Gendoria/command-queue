@@ -46,8 +46,9 @@ abstract class BaseWorker implements WorkerInterface
     /**
      * Class constructor.
      *
-     * @param ProcessorFactoryInterface         $processorFactory
-     * @param LoggerInterface          $logger             Logger instance.
+     * @param ProcessorFactoryInterface $processorFactory Command processor factory.
+     * @param SerializerInterface       $serializer       Serializer.
+     * @param LoggerInterface           $logger           Logger.
      */
     public function __construct(ProcessorFactoryInterface $processorFactory, SerializerInterface $serializer, LoggerInterface $logger = null)
     {

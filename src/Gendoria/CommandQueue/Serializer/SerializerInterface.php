@@ -17,6 +17,7 @@ interface SerializerInterface
      * 
      * @param CommandInterface $command
      * @return SerializedCommandData
+     * @throws Exception Thrown, when serialization process failed.
      */
     public function serialize(CommandInterface $command);
     
