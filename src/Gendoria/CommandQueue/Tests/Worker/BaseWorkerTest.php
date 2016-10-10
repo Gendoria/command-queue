@@ -7,6 +7,8 @@ use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
 use Gendoria\CommandQueue\ProcessorFactoryInterface;
 use Gendoria\CommandQueue\ProcessorNotFoundException;
+use Gendoria\CommandQueue\Serializer\NullSerializer;
+use Gendoria\CommandQueue\Serializer\SerializedCommandData;
 use Gendoria\CommandQueue\Worker\BaseWorker;
 use Gendoria\CommandQueue\Worker\Exception\ProcessorErrorException;
 use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
@@ -25,12 +27,13 @@ class BaseWorkerTest extends PHPUnit_Framework_TestCase
     {
         /* @var $processorFactory PHPUnit_Framework_MockObject_MockObject|PHPUnit_Framework_MockObject_Generator|ProcessorFactoryInterface */
         $processorFactory = $this->getMockBuilder(ProcessorFactoryInterface::class)->getMock();
+        $nullSerializer = new NullSerializer();
         $command = $this->getMockBuilder(CommandInterface::class)->getMock();
         
         $mockBaseBuilder = $this->getMockBuilder(BaseWorker::class)
             ->enableProxyingToOriginalMethods()
             ->enableOriginalConstructor()
-            ->setConstructorArgs(array($processorFactory))
+            ->setConstructorArgs(array($processorFactory, $nullSerializer))
             ->setMethods(array('beforeTranslateHook', 'beforeGetProcessorHook', 'beforeProcessHook', 'translateCommand', 'afterProcessHook'));
         
         $commandData = "DummyData";
@@ -47,8 +50,8 @@ class BaseWorkerTest extends PHPUnit_Framework_TestCase
         $mock->setProcessorFactory($processorFactory);
         
         $mock->expects($this->once())
-            ->method('translateCommand')
-            ->will($this->returnValue($command));
+            ->method('getSerializedCommandData')
+            ->will($this->returnValue(new SerializedCommandData($command, get_class($command))));
         
         $mock->expects($this->once())->method('beforeTranslateHook')->with("DummyData");
         $mock->expects($this->once())->method('beforeGetProcessorHook')->with($command);
@@ -62,32 +65,32 @@ class BaseWorkerTest extends PHPUnit_Framework_TestCase
     
     public function testInvalidTranslation()
     {
-        $this->setExpectedException(TranslateErrorException::class, "Dummy exception");
+        $this->setExpectedException(TranslateErrorException::class, "Null serializer accepts only commands as serialized command data.");
         /* @var $processorFactory PHPUnit_Framework_MockObject_MockObject|PHPUnit_Framework_MockObject_Generator|ProcessorFactoryInterface */
         $processorFactory = $this->getMockBuilder(ProcessorFactoryInterface::class)->getMock();
+        $nullSerializer = new NullSerializer();
         
         $mockBaseBuilder = $this->getMockBuilder(BaseWorker::class)
             ->enableProxyingToOriginalMethods()
             ->enableOriginalConstructor()
-            ->setConstructorArgs(array($processorFactory))
+            ->setConstructorArgs(array($processorFactory, $nullSerializer))
             ->setMethods(array('beforeTranslateHook', 'beforeGetProcessorHook', 'beforeProcessHook', 'translateCommand', 'afterProcessHook'));
         
-        $commandData = "DummyData";
+        $commandData = new SerializedCommandData("notaclass", 'notaclassname');
         
         /* @var $mock PHPUnit_Framework_MockObject_MockObject|PHPUnit_Framework_MockObject_Generator|BaseWorker */
         $mock = $mockBaseBuilder->getMockForAbstractClass();
         
-        $translateException = new Exception("Dummy exception");
         $mock->expects($this->once())
-            ->method('translateCommand')
-            ->will($this->throwException($translateException));
+            ->method('getSerializedCommandData')
+            ->will($this->returnValue($commandData));
         
-        $mock->expects($this->once())->method('beforeTranslateHook')->with("DummyData");
+        $mock->expects($this->once())->method('beforeTranslateHook')->with($commandData);
         
         try {
             $mock->process($commandData);
         } catch (TranslateErrorException $e) {
-            $this->assertEquals($translateException, $e->getPrevious());
+//            $this->assertEquals($translateException, $e->getPrevious());
             $this->assertEquals($commandData, $e->getCommandData());
             throw $e;
         }
@@ -98,12 +101,13 @@ class BaseWorkerTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(ProcessorNotFoundException::class, "Not found");
         /* @var $processorFactory PHPUnit_Framework_MockObject_MockObject|PHPUnit_Framework_MockObject_Generator|ProcessorFactoryInterface */
         $processorFactory = $this->getMockBuilder(ProcessorFactoryInterface::class)->getMock();
+        $nullSerializer = new NullSerializer();
         $command = $this->getMockBuilder(CommandInterface::class)->getMock();
         
         $mockBaseBuilder = $this->getMockBuilder(BaseWorker::class)
             ->enableProxyingToOriginalMethods()
             ->enableOriginalConstructor()
-            ->setConstructorArgs(array($processorFactory))
+            ->setConstructorArgs(array($processorFactory, $nullSerializer))
             ->setMethods(array('beforeTranslateHook', 'beforeGetProcessorHook', 'beforeProcessHook', 'translateCommand', 'afterProcessHook'));
         
         $commandData = "DummyData";
@@ -118,8 +122,8 @@ class BaseWorkerTest extends PHPUnit_Framework_TestCase
         $mock = $mockBaseBuilder->getMockForAbstractClass();
         
         $mock->expects($this->once())
-            ->method('translateCommand')
-            ->will($this->returnValue($command));
+            ->method('getSerializedCommandData')
+            ->will($this->returnValue(new SerializedCommandData($command, get_class($command))));
         
         $mock->expects($this->once())->method('beforeTranslateHook')->with("DummyData");
         $mock->expects($this->once())->method('beforeGetProcessorHook')->with($command);
@@ -132,12 +136,13 @@ class BaseWorkerTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(ProcessorErrorException::class, "Processor exception");
         /* @var $processorFactory PHPUnit_Framework_MockObject_MockObject|PHPUnit_Framework_MockObject_Generator|ProcessorFactoryInterface */
         $processorFactory = $this->getMockBuilder(ProcessorFactoryInterface::class)->getMock();
+        $nullSerializer = new NullSerializer();
         $command = $this->getMockBuilder(CommandInterface::class)->getMock();
         
         $mockBaseBuilder = $this->getMockBuilder(BaseWorker::class)
             ->enableProxyingToOriginalMethods()
             ->enableOriginalConstructor()
-            ->setConstructorArgs(array($processorFactory))
+            ->setConstructorArgs(array($processorFactory, $nullSerializer))
             ->setMethods(array('beforeTranslateHook', 'beforeGetProcessorHook', 'beforeProcessHook', 'translateCommand', 'afterProcessHook'));
         
         $commandData = "DummyData";
@@ -158,8 +163,8 @@ class BaseWorkerTest extends PHPUnit_Framework_TestCase
         $mock = $mockBaseBuilder->getMockForAbstractClass();
         
         $mock->expects($this->once())
-            ->method('translateCommand')
-            ->will($this->returnValue($command));
+            ->method('getSerializedCommandData')
+            ->will($this->returnValue(new SerializedCommandData($command, get_class($command))));
         
         $mock->expects($this->once())->method('beforeTranslateHook')->with("DummyData");
         $mock->expects($this->once())->method('beforeGetProcessorHook')->with($command);

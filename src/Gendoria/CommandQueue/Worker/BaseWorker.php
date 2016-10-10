@@ -7,6 +7,8 @@ use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
 use Gendoria\CommandQueue\ProcessorFactoryInterface;
 use Gendoria\CommandQueue\ProcessorNotFoundException;
+use Gendoria\CommandQueue\Serializer\SerializedCommandData;
+use Gendoria\CommandQueue\Serializer\SerializerInterface;
 use Gendoria\CommandQueue\Worker\Exception\ProcessorErrorException;
 use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
 use Psr\Log\LoggerInterface;
@@ -33,6 +35,13 @@ abstract class BaseWorker implements WorkerInterface
      * @var LoggerInterface
      */
     protected $logger;
+    
+    /**
+     * Serializer.
+     * 
+     * @var SerializerInterface
+     */
+    protected $serializer;
 
     /**
      * Class constructor.
@@ -40,9 +49,10 @@ abstract class BaseWorker implements WorkerInterface
      * @param ProcessorFactoryInterface         $processorFactory
      * @param LoggerInterface          $logger             Logger instance.
      */
-    public function __construct(ProcessorFactoryInterface $processorFactory, LoggerInterface $logger = null)
+    public function __construct(ProcessorFactoryInterface $processorFactory, SerializerInterface $serializer, LoggerInterface $logger = null)
     {
         $this->processorFactory = $processorFactory;
+        $this->serializer = $serializer;
         $this->logger = $logger ? $logger : new NullLogger();
     }
 
@@ -58,11 +68,7 @@ abstract class BaseWorker implements WorkerInterface
     public function process($commandData)
     {
         $this->beforeTranslateHook($commandData);
-        try {
-            $command = $this->translateCommand($commandData);
-        } catch (Exception $e) {
-            throw new TranslateErrorException($commandData, $e->getMessage(), $e->getCode(), $e);
-        }
+        $command = $this->serializer->unserialize($this->getSerializedCommandData($commandData));
         $this->beforeGetProcessorHook($command);
         $processor = $this->getProcessor($command);
         $this->beforeProcessHook($command, $processor);
@@ -94,15 +100,15 @@ abstract class BaseWorker implements WorkerInterface
     }
     
     /**
-     * Get command from command data.
+     * Get serialized command data to use with translator.
      * 
      * @param mixed $commandData
+     * @return SerializedCommandData
      * 
-     * @return CommandInterface
-     * @throws \Exception Thrown, when translation has been unsuccessfull.
+     * @throws TranslateErrorException Thrown, when data could not have been translated to serialized command data.
      */
-    abstract protected function translateCommand($commandData);
-
+    abstract protected function getSerializedCommandData($commandData);
+    
     /**
      * Hook called before command translation.
      * 

@@ -3,6 +3,7 @@
 namespace Gendoria\CommandQueue\Serializer;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
+use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
 use InvalidArgumentException;
 
 /**
@@ -25,12 +26,13 @@ class NullSerializer implements SerializerInterface
      * 
      * @throws InvalidArgumentException Thrown, when "serialized" data is not an instance of correct command class.
      */
-    public function unserialize($serializedCommandData, $commandClass)
+    public function unserialize(SerializedCommandData $serializedCommandData)
     {
-        if (!is_object($serializedCommandData) || !$serializedCommandData instanceof $commandClass) {
-            throw new InvalidArgumentException("Null serializer accepts only commands as serialized command data.");
+        $commandClass = $serializedCommandData->getCommandClass();
+        if (!is_object($serializedCommandData->getSerializedCommand()) || !$serializedCommandData->getSerializedCommand() instanceof $commandClass) {
+            throw new TranslateErrorException($serializedCommandData, "Null serializer accepts only commands as serialized command data.");
         }
-        return $serializedCommandData;
+        return $serializedCommandData->getSerializedCommand();
     }
 
 }

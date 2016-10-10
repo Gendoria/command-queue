@@ -3,6 +3,7 @@
 namespace Gendoria\CommandQueue\Serializer;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
+use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
 
 /**
  * Translator interface.
@@ -22,9 +23,10 @@ interface SerializerInterface
     /**
      * Unserialize command.
      * 
-     * @param mixed $serializedCommandData
-     * @param string $commandClass
+     * @param SerializedCommandData $serializedCommandData
      * @return CommandInterface
+     * 
+     * @throws TranslateErrorException Thrown, when unserialization is impossible due to errors.
      */
-    public function unserialize($serializedCommandData, $commandClass);
+    public function unserialize(SerializedCommandData $serializedCommandData);
 }
