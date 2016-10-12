@@ -48,7 +48,7 @@ class RouteDetector
      * Add new route.
      *
      * @param string $expression Either simple expression, or RegExp describing route.
-     * @param string $route
+     * @param string $route Route name.
      *
      * @return bool True, if route has been set, false otherwise.
      */
@@ -56,21 +56,47 @@ class RouteDetector
     {
         //Detect command expression
         if (strpos($expression, '*') !== false) {
-            $expression = '|^'.str_replace(array('*', '\\'), array('.*', '\\\\'), $expression).'$|i';
-            if (array_key_exists($expression, $this->regexpRoutes) && $this->regexpRoutes[$expression] == $route) {
-                return false;
-            }
-            $this->regexpRoutes[$expression] = (string) $route;
+            return $this->addRegexpRoute($expression, $route);
         } else {
-            if (array_key_exists($expression, $this->simpleRoutes) && $this->simpleRoutes[$expression] == $route) {
-                return false;
-            }
-            $this->simpleRoutes[$expression] = (string) $route;
+            return $this->addSimpleRoute($expression, $route);
         }
-
+    }
+    
+    /**
+     * Add new regexp route.
+     *
+     * @param string $expression RegExp describing route.
+     * @param string $route Route name.
+     *
+     * @return bool True, if route has been set, false otherwise.
+     */
+    private function addRegexpRoute($expression, $route)
+    {
+        $expression = '|^'.str_replace(array('*', '\\'), array('.*', '\\\\'), $expression).'$|i';
+        if (array_key_exists($expression, $this->regexpRoutes) && $this->regexpRoutes[$expression] == $route) {
+            return false;
+        }
+        $this->regexpRoutes[$expression] = (string) $route;
         return true;
     }
 
+    /**
+     * Add new simple route.
+     *
+     * @param string $expression Simple route expression.
+     * @param string $route Route name.
+     *
+     * @return bool True, if route has been set, false otherwise.
+     */
+    private function addSimpleRoute($expression, $route)
+    {
+        if (array_key_exists($expression, $this->simpleRoutes) && $this->simpleRoutes[$expression] == $route) {
+            return false;
+        }
+        $this->simpleRoutes[$expression] = (string) $route;
+        return true;
+    }
+    
     /**
      * Set default route.
      *
