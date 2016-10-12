@@ -35,6 +35,9 @@ class NullQueueManager implements MultipleQueueManagerInterface, CommandRouterIn
         
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setSendDriver(SendDriverInterface $sendDriver)
     {
         
