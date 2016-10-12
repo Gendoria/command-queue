@@ -10,7 +10,7 @@ use Gendoria\CommandQueue\SendDriver\SendDriverInterface;
  *
  * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
-class NullQueueManager implements MultipleQueueManagerInterface, CommandRouterInterface
+class NullQueueManager implements MultipleQueueManagerInterface, CommandRouterInterface, SingleQueueManagerInterface
 {
     /**
      * {@inheritdoc}
@@ -31,6 +31,11 @@ class NullQueueManager implements MultipleQueueManagerInterface, CommandRouterIn
      * {@inheritdoc}
      */
     public function sendCommand(CommandInterface $command)
+    {
+        
+    }
+
+    public function setSendDriver(SendDriverInterface $sendDriver)
     {
         
     }
