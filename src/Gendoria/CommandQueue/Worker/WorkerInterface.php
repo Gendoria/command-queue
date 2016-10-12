@@ -4,8 +4,8 @@ namespace Gendoria\CommandQueue\Worker;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
-use Gendoria\CommandQueue\ProcessorFactoryInterface;
-use Gendoria\CommandQueue\ProcessorNotFoundException;
+use Gendoria\CommandQueue\ProcessorFactory\ProcessorFactoryInterface;
+use Gendoria\CommandQueue\ProcessorFactory\ProcessorNotFoundException;
 use Gendoria\CommandQueue\Worker\Exception\ProcessorErrorException;
 use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
 

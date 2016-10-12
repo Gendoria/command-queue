@@ -3,7 +3,7 @@
 namespace Gendoria\CommandQueue\Tests\QueueManager;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
-use Gendoria\CommandQueue\ProcessorFactory;
+use Gendoria\CommandQueue\ProcessorFactory\ProcessorFactory;
 use Gendoria\CommandQueue\QueueManager\SimpleQueueManager;
 use Gendoria\CommandQueue\SendDriver\DirectProcessingDriver;
 use PHPUnit_Framework_TestCase;

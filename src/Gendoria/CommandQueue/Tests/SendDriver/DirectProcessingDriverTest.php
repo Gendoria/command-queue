@@ -1,12 +1,12 @@
 <?php
 
-namespace Gendoria\CommandQueue\Tests;
+namespace Gendoria\CommandQueue\Tests\SendDriver;
 
 use Exception;
 use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
-use Gendoria\CommandQueue\ProcessorFactory;
-use Gendoria\CommandQueue\ProcessorNotFoundException;
+use Gendoria\CommandQueue\ProcessorFactory\ProcessorFactory;
+use Gendoria\CommandQueue\ProcessorFactory\ProcessorNotFoundException;
 use Gendoria\CommandQueue\SendDriver\DirectProcessingDriver;
 use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
 use PHPUnit_Framework_TestCase;

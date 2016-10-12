@@ -31,4 +31,8 @@ of the Composer documentation.
 
 ## Usage
 
-No usage instructions yet.
+This library provides building blocks to create command queue system, where you delgate
+your tasks to a pools of backend workers for further processing.
+
+By itself, it does have a simple implementation of 'direct' command queue,
+where commands are not sent, but executed locally by a driver.
