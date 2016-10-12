@@ -17,7 +17,6 @@ class NullQueueManager implements MultipleQueueManagerInterface, CommandRouterIn
      */
     public function addSendDriver($pool, SendDriverInterface $sendDriver, $isDefault = false)
     {
-        
     }
     
     /**
@@ -32,7 +31,6 @@ class NullQueueManager implements MultipleQueueManagerInterface, CommandRouterIn
      */
     public function sendCommand(CommandInterface $command)
     {
-        
     }
 
     /**
@@ -40,6 +38,5 @@ class NullQueueManager implements MultipleQueueManagerInterface, CommandRouterIn
      */
     public function setSendDriver(SendDriverInterface $sendDriver)
     {
-        
     }
 }
