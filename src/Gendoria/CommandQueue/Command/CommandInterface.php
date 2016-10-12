@@ -3,7 +3,7 @@
 namespace Gendoria\CommandQueue\Command;
 
 /**
- * Description of FetchCommand.
+ * Command interface, used to tag classes as commands.
  *
  * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
