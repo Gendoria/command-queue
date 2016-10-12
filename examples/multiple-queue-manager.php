@@ -62,8 +62,7 @@ $simpleProcessor = new SimpleProcessor();
 $processorFactory = new ProcessorFactory();
 $processorFactory->registerProcessorForCommand(SimpleCommand::class, $simpleProcessor);
 
-$driver = new DirectProcessingDriver();
-$driver->setProcessorFactory($processorFactory);
+$driver = new DirectProcessingDriver($processorFactory);
 $manager = new MultipleQueueManager();
 $manager->addSendDriver('default', $driver, true);
 $manager->addCommandRoute('SimpleCommand', 'default');

@@ -34,7 +34,7 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
             ->method('error');
         $processorFactory = new ProcessorFactory();
         $processorFactory->registerProcessorForCommand(get_class($command), $service);
-        $driver = new DirectProcessingDriver();
+        $driver = new DirectProcessingDriver($processorFactory);
         $driver->setProcessorFactory($processorFactory);
         $driver->setLogger($logger);
         
@@ -50,7 +50,7 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
             ->with('Exception while sending command: No processor registered for given command class: '.get_class($command));
         
         $processorFactory = new ProcessorFactory();
-        $driver = new DirectProcessingDriver();
+        $driver = new DirectProcessingDriver($processorFactory);
         $driver->setProcessorFactory($processorFactory);
         $driver->setLogger($logger);
         
@@ -77,7 +77,7 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
             ;
         $processorFactory = new ProcessorFactory();
         $processorFactory->registerProcessorForCommand(get_class($command), $service);
-        $driver = new DirectProcessingDriver();
+        $driver = new DirectProcessingDriver($processorFactory);
         $driver->setProcessorFactory($processorFactory);
         $driver->setLogger($logger);
         
@@ -88,7 +88,7 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(ProcessorNotFoundException::class);
         $processorFactory = new ProcessorFactory();
-        $driver = new DirectProcessingDriver();
+        $driver = new DirectProcessingDriver($processorFactory);
         $driver->setProcessorFactory($processorFactory);
         $command = $this->getMockBuilder(CommandInterface::class)->getMock();
         
@@ -99,7 +99,7 @@ class DirectProcessingDriverTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(TranslateErrorException::class);
         $processorFactory = new ProcessorFactory();
-        $driver = new DirectProcessingDriver();
+        $driver = new DirectProcessingDriver($processorFactory);
         $driver->setProcessorFactory($processorFactory);
         
         $driver->process("Not a command");

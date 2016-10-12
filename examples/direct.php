@@ -61,8 +61,7 @@ $simpleProcessor = new SimpleProcessor();
 $processorFactory = new ProcessorFactory();
 $processorFactory->registerProcessorForCommand(SimpleCommand::class, $simpleProcessor);
 
-$driver = new DirectProcessingDriver();
-$driver->setProcessorFactory($processorFactory);
+$driver = new DirectProcessingDriver($processorFactory);
 
 for ($k = 0; $k < 5; $k++) {
     $command = new SimpleCommand("Test ".($k+1));

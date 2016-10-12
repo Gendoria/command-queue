@@ -22,7 +22,7 @@ class SingleQueueManagerTest extends PHPUnit_Framework_TestCase
         $command = $this->getMockBuilder(CommandInterface::class)->getMock();
         $qm = new SingleQueueManager();
         $processorFactory = new ProcessorFactory();
-        $driver = new DirectProcessingDriver();
+        $driver = new DirectProcessingDriver($processorFactory);
         $driver->setProcessorFactory($processorFactory);
         $qm->setSendDriver($driver);
         $qm->sendCommand($command);

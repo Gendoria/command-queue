@@ -9,6 +9,8 @@ use Gendoria\CommandQueue\Worker\Exception\ProcessorErrorException;
 use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
 use Gendoria\CommandQueue\Worker\WorkerInterface;
 use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Description of DirectProcessingDriver.
@@ -25,6 +27,17 @@ class DirectProcessingDriver implements SendDriverInterface, WorkerInterface, Lo
      * @var ProcessorFactoryInterface
      */
     private $processorFactory;
+    
+    /**
+     * Class constructor.
+     * 
+     * @param ProcessorFactoryInterface $processorFactory
+     */
+    public function __construct(ProcessorFactoryInterface $processorFactory, LoggerInterface $logger = null)
+    {
+        $this->processorFactory = $processorFactory;
+        $this->setLogger($logger ? $logger : new NullLogger());
+    }
 
     /**
      * {@inheritdoc}
@@ -34,13 +47,9 @@ class DirectProcessingDriver implements SendDriverInterface, WorkerInterface, Lo
         try {
             $this->process($command);
         } catch (ProcessorNotFoundException $e) {
-            if ($this->logger) {
-                $this->logger->error('Exception while sending command: '.$e->getMessage());
-            }
+            $this->logger->error('Exception while sending command: '.$e->getMessage());
         } catch (\Exception $e) {
-            if ($this->logger) {
-                $this->logger->error('Exception while sending command: '.$e->getMessage());
-            }
+            $this->logger->error('Exception while sending command: '.$e->getMessage());
         }
     }
 
@@ -66,9 +75,7 @@ class DirectProcessingDriver implements SendDriverInterface, WorkerInterface, Lo
     public function getProcessor(CommandInterface $command)
     {
         $processor = $this->processorFactory->getProcessor($command);
-        if ($this->logger) {
-            $processor->setLogger($this->logger);
-        }
+        $processor->setLogger($this->logger);
         return $processor;
     }    
 
