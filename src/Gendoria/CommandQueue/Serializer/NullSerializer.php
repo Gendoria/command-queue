@@ -3,7 +3,7 @@
 namespace Gendoria\CommandQueue\Serializer;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
-use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
+use Gendoria\CommandQueue\Serializer\Exception\UnserializeErrorException;
 use InvalidArgumentException;
 
 /**
@@ -30,7 +30,7 @@ class NullSerializer implements SerializerInterface
     {
         $commandClass = $serializedCommandData->getCommandClass();
         if (!is_object($serializedCommandData->getSerializedCommand()) || !$serializedCommandData->getSerializedCommand() instanceof $commandClass) {
-            throw new TranslateErrorException($serializedCommandData, "Null serializer accepts only commands as serialized command data.");
+            throw new UnserializeErrorException($serializedCommandData, "Null serializer accepts only commands as serialized command data.");
         }
         return $serializedCommandData->getSerializedCommand();
     }

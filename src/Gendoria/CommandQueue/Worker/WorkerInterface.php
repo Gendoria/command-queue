@@ -7,7 +7,7 @@ use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
 use Gendoria\CommandQueue\ProcessorFactory\Exception\ProcessorNotFoundException;
 use Gendoria\CommandQueue\ProcessorFactory\ProcessorFactoryInterface;
 use Gendoria\CommandQueue\Worker\Exception\ProcessorErrorException;
-use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
+use Gendoria\CommandQueue\Worker\Exception\UnserializeErrorException;
 
 /**
  * This interface describes functionality of a single processor worker node.
@@ -24,7 +24,7 @@ interface WorkerInterface
      * 
      * @throws ProcessorErrorException Thrown, when processor returned error.
      * @throws ProcessorNotFoundException Thrown, when processor for given command has not been found.
-     * @throws TranslateErrorException Thrown, when command data could not have been translated to command.
+     * @throws UnserializeErrorException Thrown, when command data could not have been translated to command.
      */
     public function process($commandData);
     

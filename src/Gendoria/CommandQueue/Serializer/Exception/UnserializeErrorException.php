@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendoria\CommandQueue\Worker\Exception;
+namespace Gendoria\CommandQueue\Serializer\Exception;
 
 use Exception;
 
@@ -9,7 +9,7 @@ use Exception;
  *
  * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
-class TranslateErrorException extends Exception
+class UnserializeErrorException extends Exception
 {
     /**
      * Command data.

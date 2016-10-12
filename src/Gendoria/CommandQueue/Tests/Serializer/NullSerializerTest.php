@@ -3,10 +3,9 @@
 namespace Gendoria\CommandQueue\Tests\Serializer;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
+use Gendoria\CommandQueue\Serializer\Exception\UnserializeErrorException;
 use Gendoria\CommandQueue\Serializer\NullSerializer;
 use Gendoria\CommandQueue\Serializer\SerializedCommandData;
-use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
-use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -30,7 +29,7 @@ class NullSerializerTest extends PHPUnit_Framework_TestCase
     
     public function testUnserializationExceptionNotAnObject()
     {
-        $this->setExpectedException(TranslateErrorException::class, 'Null serializer accepts only commands as serialized command data.');
+        $this->setExpectedException(UnserializeErrorException::class, 'Null serializer accepts only commands as serialized command data.');
         $serializer = new NullSerializer();
         
         $serializer->unserialize(new SerializedCommandData("NotACommand", "NotAClass"));
@@ -38,7 +37,7 @@ class NullSerializerTest extends PHPUnit_Framework_TestCase
     
     public function testUnserializationExceptionIncorrectClass()
     {
-        $this->setExpectedException(TranslateErrorException::class, 'Null serializer accepts only commands as serialized command data.');
+        $this->setExpectedException(UnserializeErrorException::class, 'Null serializer accepts only commands as serialized command data.');
         $serializer = new NullSerializer();
         $command = $this->getMockBuilder(CommandInterface::class)->getMock();
         

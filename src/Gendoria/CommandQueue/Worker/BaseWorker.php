@@ -7,10 +7,10 @@ use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
 use Gendoria\CommandQueue\ProcessorFactory\Exception\ProcessorNotFoundException;
 use Gendoria\CommandQueue\ProcessorFactory\ProcessorFactoryInterface;
+use Gendoria\CommandQueue\Serializer\Exception\UnserializeErrorException;
 use Gendoria\CommandQueue\Serializer\SerializedCommandData;
 use Gendoria\CommandQueue\Serializer\SerializerInterface;
 use Gendoria\CommandQueue\Worker\Exception\ProcessorErrorException;
-use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -62,7 +62,7 @@ abstract class BaseWorker implements WorkerInterface
      * @param mixed $commandData
      * @return void
      * 
-     * @throws TranslateErrorException Thrown, when translation process resulted in an error.
+     * @throws UnserializeErrorException Thrown, when translation process resulted in an error.
      * @throws ProcessorNotFoundException Thrown, when processor for given command has not been found.
      * @throws ProcessorErrorException Thrown, when processor resulted in an error.
      */
@@ -106,7 +106,7 @@ abstract class BaseWorker implements WorkerInterface
      * @param mixed $commandData
      * @return SerializedCommandData
      * 
-     * @throws TranslateErrorException Thrown, when data could not have been translated to serialized command data.
+     * @throws UnserializeErrorException Thrown, when data could not have been translated to serialized command data.
      */
     abstract protected function getSerializedCommandData($commandData);
     

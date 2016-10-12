@@ -7,11 +7,11 @@ use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
 use Gendoria\CommandQueue\ProcessorFactory\Exception\ProcessorNotFoundException;
 use Gendoria\CommandQueue\ProcessorFactory\ProcessorFactoryInterface;
+use Gendoria\CommandQueue\Serializer\Exception\UnserializeErrorException;
 use Gendoria\CommandQueue\Serializer\NullSerializer;
 use Gendoria\CommandQueue\Serializer\SerializedCommandData;
 use Gendoria\CommandQueue\Worker\BaseWorker;
 use Gendoria\CommandQueue\Worker\Exception\ProcessorErrorException;
-use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
 use PHPUnit_Framework_MockObject_Generator;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
@@ -65,7 +65,7 @@ class BaseWorkerTest extends PHPUnit_Framework_TestCase
     
     public function testInvalidTranslation()
     {
-        $this->setExpectedException(TranslateErrorException::class, "Null serializer accepts only commands as serialized command data.");
+        $this->setExpectedException(UnserializeErrorException::class, "Null serializer accepts only commands as serialized command data.");
         /* @var $processorFactory PHPUnit_Framework_MockObject_MockObject|PHPUnit_Framework_MockObject_Generator|ProcessorFactoryInterface */
         $processorFactory = $this->getMockBuilder(ProcessorFactoryInterface::class)->getMock();
         $nullSerializer = new NullSerializer();
@@ -89,7 +89,7 @@ class BaseWorkerTest extends PHPUnit_Framework_TestCase
         
         try {
             $mock->process($commandData);
-        } catch (TranslateErrorException $e) {
+        } catch (UnserializeErrorException $e) {
 //            $this->assertEquals($translateException, $e->getPrevious());
             $this->assertEquals($commandData, $e->getCommandData());
             throw $e;

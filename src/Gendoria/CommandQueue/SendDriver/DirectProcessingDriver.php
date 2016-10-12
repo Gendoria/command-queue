@@ -5,8 +5,8 @@ namespace Gendoria\CommandQueue\SendDriver;
 use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\ProcessorFactory\Exception\ProcessorNotFoundException;
 use Gendoria\CommandQueue\ProcessorFactory\ProcessorFactoryInterface;
+use Gendoria\CommandQueue\Serializer\Exception\UnserializeErrorException;
 use Gendoria\CommandQueue\Worker\Exception\ProcessorErrorException;
-use Gendoria\CommandQueue\Worker\Exception\TranslateErrorException;
 use Gendoria\CommandQueue\Worker\WorkerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
@@ -59,7 +59,7 @@ class DirectProcessingDriver implements SendDriverInterface, WorkerInterface, Lo
     public function process($command)
     {
         if (!$command instanceof CommandInterface) {
-            throw new TranslateErrorException($command, "Command has to be instance of command interface for direct processing driver", 500);
+            throw new UnserializeErrorException($command, "Command has to be instance of command interface for direct processing driver", 500);
         }
         $processor = $this->getProcessor($command);
         try {
