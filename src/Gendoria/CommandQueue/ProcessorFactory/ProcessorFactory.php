@@ -4,7 +4,8 @@ namespace Gendoria\CommandQueue\ProcessorFactory;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
-use Gendoria\CommandQueue\Exception\MultipleProcessorsException;
+use Gendoria\CommandQueue\ProcessorFactory\Exception\MultipleProcessorsException;
+use Gendoria\CommandQueue\ProcessorFactory\Exception\ProcessorNotFoundException;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;

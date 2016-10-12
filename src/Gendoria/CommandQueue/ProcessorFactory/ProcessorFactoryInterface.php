@@ -4,6 +4,8 @@ namespace Gendoria\CommandQueue\ProcessorFactory;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
+use Gendoria\CommandQueue\ProcessorFactory\Exception\MultipleProcessorsException;
+use Gendoria\CommandQueue\ProcessorFactory\Exception\ProcessorNotFoundException;
 use InvalidArgumentException;
 
 /**
@@ -21,7 +23,7 @@ interface ProcessorFactoryInterface
      * @return void
      *
      * @throws InvalidArgumentException Thrown, when given command class does not exist, or does not implement CommandInterface.
-     * @throws Exception\MultipleProcessorsException Thrown, when multiple processors are registered on same command classes.
+     * @throws MultipleProcessorsException Thrown, when multiple processors are registered on same command classes.
      *
      * @see CommandInterface
      */
@@ -34,7 +36,7 @@ interface ProcessorFactoryInterface
      *
      * @return CommandProcessorInterface
      *
-     * @throws ProcessorNotFoundExceptions
+     * @throws ProcessorNotFoundException
      */
     public function getProcessor(CommandInterface $command);
     

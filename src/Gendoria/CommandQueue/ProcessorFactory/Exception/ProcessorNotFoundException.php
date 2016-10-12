@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendoria\CommandQueue\ProcessorFactory;
+namespace Gendoria\CommandQueue\ProcessorFactory\Exception;
 
 use Exception;
 

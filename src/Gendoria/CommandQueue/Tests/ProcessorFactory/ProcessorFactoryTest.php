@@ -4,9 +4,9 @@ namespace Gendoria\CommandQueue\Tests\ProcessorFactory;
 
 use Gendoria\CommandQueue\Command\CommandInterface;
 use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
-use Gendoria\CommandQueue\Exception\MultipleProcessorsException;
+use Gendoria\CommandQueue\ProcessorFactory\Exception\MultipleProcessorsException;
+use Gendoria\CommandQueue\ProcessorFactory\Exception\ProcessorNotFoundException;
 use Gendoria\CommandQueue\ProcessorFactory\ProcessorFactory;
-use Gendoria\CommandQueue\ProcessorFactory\ProcessorNotFoundException;
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 
