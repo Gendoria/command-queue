@@ -10,7 +10,7 @@ use PHPUnit_Framework_TestCase;
 use RuntimeException;
 
 /**
- * Description of SimpleQueueManagerTest
+ * Tests for SingleQueueManager.
  *
  * @author Tomasz Struczyński <t.struczynski@gmail.com>
  * @group CommandQueue
