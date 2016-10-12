@@ -9,7 +9,7 @@ use Gendoria\CommandQueue\SendDriver\SendDriverInterface;
  *
  * @author Tomasz Struczyński <t.struczynski@gmail.com>
  */
-interface QueueManagerInterface extends QueueSenderInterface
+interface SingleQueueManagerInterface extends QueueSenderInterface
 {
     /**
      * Set send driver for command queue.

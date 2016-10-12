@@ -10,7 +10,7 @@ use RuntimeException;
  * Simple queue manager.
  *
  */
-class SimpleQueueManager implements QueueManagerInterface
+class SingleQueueManager implements SingleQueueManagerInterface
 {
     /**
      * Send driver.
