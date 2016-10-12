@@ -151,12 +151,9 @@ class RouteDetector
         }
         //Nothing is found so far. We will check all of the class interfaces and base classes.
         //First - check base classes up to the 'root'
-        $parentClass = get_parent_class($className);
-        if ($parentClass) {
-            $parentDetection = $this->doDetect($parentClass, false);
-            if ($parentDetection instanceof ClassDetection) {
-                return $parentDetection;
-            }
+        $classDetection = $this->doDetectByClassParents($className);
+        if ($classDetection) {
+            return $classDetection;
         }
         //Check the class interfaces
         if ($performInterfaceDetection) {
@@ -167,6 +164,23 @@ class RouteDetector
         }
 
         return new DefaultDetection($this->defaultRoute);
+    }
+    
+    /**
+     * Preform detection by class parents.
+     * 
+     * @param string $className
+     * @return ClassDetection|null
+     */
+    private function doDetectByClassParents($className)
+    {
+        $parentClass = get_parent_class($className);
+        if ($parentClass) {
+            $parentDetection = $this->doDetect($parentClass, false);
+            if ($parentDetection instanceof ClassDetection) {
+                return $parentDetection;
+            }
+        }
     }
 
     /**
