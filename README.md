@@ -36,3 +36,94 @@ your tasks to a pools of backend workers for further processing.
 
 By itself, it does have a simple implementation of 'direct' command queue,
 where commands are not sent, but executed locally by a driver.
+
+The simplest example of working queue chain using direct processing driver is below.
+
+```php
+use Gendoria\CommandQueue\Command\CommandInterface;
+use Gendoria\CommandQueue\CommandProcessor\CommandProcessorInterface;
+use Gendoria\CommandQueue\ProcessorFactory\ProcessorFactory;
+use Gendoria\CommandQueue\SendDriver\DirectProcessingDriver;
+use Psr\Log\LoggerInterface;
+
+class SimpleCommand implements CommandInterface
+{
+    public $testData;
+    
+    public function __construct($testData)
+    {
+        $this->testData = $testData;
+    }
+}
+
+class SimpleProcessor implements CommandProcessorInterface
+{
+    /**
+     *
+     * @var LoggerInterface
+     */
+    private $logger;
+    
+    /**
+     * Process command.
+     * 
+     * @param SimpleCommand $command
+     */
+    public function process(CommandInterface $command)
+    {
+        echo "Command class: ".get_class($command)."\n";
+        echo "Command payload: ".$command->testData."\n";
+        echo "\n";
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function supports(CommandInterface $command)
+    {
+        return $command instanceof SimpleCommand;
+    }
+
+}
+
+$simpleProcessor = new SimpleProcessor();
+
+$processorFactory = new ProcessorFactory();
+$processorFactory->registerProcessorForCommand(SimpleCommand::class, $simpleProcessor);
+
+$driver = new DirectProcessingDriver();
+$driver->setProcessorFactory($processorFactory);
+
+for ($k = 0; $k < 5; $k++) {
+    $command = new SimpleCommand("Test ".($k+1));
+    $driver->send($command);
+    sleep(1);
+}
+```
+
+You can find this example in `examples/direct.php` file. If you run it, you should see the following output:
+
+```console
+$ php example/direct.php
+Command class: SimpleCommand
+Command payload: Test 1
+
+Command class: SimpleCommand
+Command payload: Test 2
+
+Command class: SimpleCommand
+Command payload: Test 3
+
+Command class: SimpleCommand
+Command payload: Test 4
+
+Command class: SimpleCommand
+Command payload: Test 5
+
+```
+
+Direct processing driver is not very usable in real world application, as it does not delegate any tasks.
+But you can use it at an early stage of your application development, when you know, for tasks you want
+to delegate to backend processing at later date.
