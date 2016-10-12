@@ -21,6 +21,7 @@ class NullQueueManagerTest extends PHPUnit_Framework_TestCase
         $sendDriver = $this->getMockBuilder(SendDriverInterface::class)->getMock();
         $command = $this->getMockBuilder(CommandInterface::class)->getMock();
         $qm->addSendDriver('test', $sendDriver);
+        $qm->setSendDriver($sendDriver);
         $qm->addCommandRoute('.*', 'test');
         $this->assertNull($qm->sendCommand($command));
     }
