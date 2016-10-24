@@ -51,6 +51,7 @@ class WorkerRunnerManager
      * 
      * @param string $name
      * @param OutputInterface $output
+     * @return void
      * @throws InvalidArgumentException Thrown, if worker cannto be found for provided name.
      * @throws Exception Can be thrown, if runner resulted with an error.
      */
