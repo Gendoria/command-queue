@@ -18,7 +18,11 @@
         "php": ">=5.5.0",
         "psr/log": "~1.0"
     },
+    "require-dev": {
+        "symfony/console": "~2.7|~3.0"
+    },
     "suggest": {
+        "symfony/console": "To be able to register and run workers via console command."
     },
     "autoload": {
         "psr-4": { "Gendoria\\CommandQueue\\": "src/Gendoria/CommandQueue" }
